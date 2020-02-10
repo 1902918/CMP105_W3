@@ -10,7 +10,8 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	rect.setPosition(100, 100);
 	rect.setFillColor(sf::Color::Red);
 
-	speed = 100.f;
+	speed = 100.f; 
+	dir = RIGHT;
 }
 
 Level::~Level()
@@ -27,7 +28,23 @@ void Level::handleInput(float dt)
 // Update game objects
 void Level::update(float dt)
 {
-	rect.move(dt * speed, 0);
+	if (rect.getPosition().x <= 0) // if past left window edge
+	{
+		dir = RIGHT;
+	}
+	else if(rect.getPosition().x >= window->getSize().x - rect.getSize().x) // if past right window edge
+	{
+		dir = LEFT;
+	}
+
+	if (dir == RIGHT) //if moving right
+	{
+		rect.move(dt * speed, 0);
+	}
+	else //moving left
+	{
+		rect.move(dt * -speed, 0);
+	}
 }
 
 // Render level

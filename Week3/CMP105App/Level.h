@@ -26,4 +26,6 @@ private:
 
 	sf::RectangleShape rect;
 	float speed;
+	enum direction {RIGHT,LEFT};
+	direction dir;
 };
