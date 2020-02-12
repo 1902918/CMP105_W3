@@ -27,6 +27,10 @@ private:
 	sf::RectangleShape rect1;
 	sf::RectangleShape rect2;
 
-	float rect1speed;
-	float rect2speed;
+	float rect1Speed;
+	float rect2Speed;
+
+	sf::CircleShape cir1;
+
+	sf::Vector2i cir1Speed;
 };
