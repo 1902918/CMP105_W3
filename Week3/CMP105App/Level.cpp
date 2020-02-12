@@ -14,8 +14,8 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	rect2.setPosition(200, 150);
 	rect2.setFillColor(sf::Color::Green);
 
-	speed = 100.f; 
-	dir = RIGHT;
+	rect1speed = 100.f; 
+	rect2speed = 200.f;
 }
 
 Level::~Level()
@@ -29,19 +29,19 @@ void Level::handleInput(float dt)
 	//Rectangle 2
 	if (input->isKeyDown(sf::Keyboard::W) && rect2.getPosition().y > 0)
 	{
-		rect2.move(0, dt * -speed);
+		rect2.move(0, dt * -rect2speed);
 	}
 	else if (input->isKeyDown(sf::Keyboard::A) && rect2.getPosition().x > 0)
 	{
-		rect2.move(dt * -speed, 0);
+		rect2.move(dt * -rect2speed, 0);
 	}
 	else if (input->isKeyDown(sf::Keyboard::S) && rect2.getPosition().y < window->getSize().y - rect2.getSize().y)
 	{
-		rect2.move(0, dt * speed); //Move Rect2 Down
+		rect2.move(0, dt * rect2speed); //Move Rect2 Down
 	}
 	else if (input->isKeyDown(sf::Keyboard::D) && rect2.getPosition().x < window->getSize().x - rect2.getSize().x)
 	{
-		rect2.move(dt * speed, 0); //Move Rect2 Right
+		rect2.move(dt * rect2speed, 0); //Move Rect2 Right
 	}
 }
 
@@ -51,21 +51,15 @@ void Level::update(float dt)
 	//Rectangle 1
 	if (rect1.getPosition().x <= 0) // if past left window edge
 	{
-		dir = RIGHT;
+		rect1speed = abs(rect1speed);
 	}
 	else if(rect1.getPosition().x >= window->getSize().x - rect1.getSize().x) // if past right window edge
 	{
-		dir = LEFT;
+		rect1speed = -abs(rect1speed);
 	}
 
-	if (dir == RIGHT) //if moving right
-	{
-		rect1.move(dt * speed, 0);
-	}
-	else //moving left
-	{
-		rect1.move(dt * -speed, 0);
-	}
+	rect1.move(dt * rect1speed, 0);
+
 }
 
 // Render level
